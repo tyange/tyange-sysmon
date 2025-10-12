@@ -19,7 +19,7 @@ fn insert_cpu_usage(
     trans: &mut Transaction<'_>,
     now: DateTime<Utc>,
 ) -> Result<u64, postgres::Error> {
-    let cpu_usage = round_to_decimals((sys.global_cpu_usage() as f64) * 100.0, 2);
+    let cpu_usage = round_to_decimals(sys.global_cpu_usage() as f64, 2);
 
     trans.execute(
         "INSERT INTO system_metrics (time, metric_type, metric_name, value, unit) VALUES ($1, $2, $3, $4, $5)",
