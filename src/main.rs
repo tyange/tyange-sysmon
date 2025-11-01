@@ -98,8 +98,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     .unwrap();
 
     let now = Utc::now();
-    let sys = System::new_all();
+    let mut sys = System::new_all();
     let comps = Components::new_with_refreshed_list();
+
+    std::thread::sleep(sysinfo::MINIMUM_CPU_UPDATE_INTERVAL);
+    sys.refresh_all();
 
     let mut trans = client.transaction().unwrap();
 
